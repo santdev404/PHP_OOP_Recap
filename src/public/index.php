@@ -1,24 +1,13 @@
 <?php
 
 
-
 require __DIR__.'/../vendor/autoload.php';
 
+$date = new DateTime('05/12/21 3:30PM');
 
-use App\PaymentGateway\Paddle\Transaction as PaddleTransaction;
-use App\PaymentGateway\Stripe\Transaction as StripeTrasnsaction;
+echo $date->getTimezone()->getName().' - '.$date->format('m/d/Y g:i A').PHP_EOL;
 
-use App\DB;
+$date->setDate(2021, 4, 21)->setTime(2,15);
+$date->setTimezone(new DateTimeZone('Europe/Amsterdam'));
 
-// $transaction = new PaddleTransaction(25, 'Transaction 1');
-// $transaction = new PaddleTransaction(25, 'Transaction 1');
-// $transaction = new PaddleTransaction(25, 'Transaction 1');
-// $transaction = new PaddleTransaction(25, 'Transaction 1');
-// $transaction = new PaddleTransaction(25, 'Transaction 1');
-
-// var_dump(PaddleTransaction::getCount());
-
-
-DB::getInstace([]);
-DB::getInstace([]);
-DB::getInstace([]);
+echo $date->getTimezone()->getName().' - '.$date->format('m/d/Y g:i A').PHP_EOL;
