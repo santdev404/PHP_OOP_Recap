@@ -3,11 +3,24 @@
 
 require __DIR__.'/../vendor/autoload.php';
 
-$date = new DateTime('05/12/21 3:30PM');
+$date = '15/05/2021 3:30PM';
 
-echo $date->getTimezone()->getName().' - '.$date->format('m/d/Y g:i A').PHP_EOL;
+// $dateTime = new DateTime(str_replace('/', '.',$date));
 
-$date->setDate(2021, 4, 21)->setTime(2,15);
-$date->setTimezone(new DateTimeZone('Europe/Amsterdam'));
+// $dateTime = DateTime::createFromFormat('d/m/Y g:iA', $date);
 
-echo $date->getTimezone()->getName().' - '.$date->format('m/d/Y g:i A').PHP_EOL;
+
+// var_dump($dateTime);
+
+
+
+//Diff
+
+$dateTime1 = new DateTime('05/25/2021 9:15 AM');
+$dateTime2 = new DateTime('03/15/2021 3:25 AM');
+
+
+//echo $dateTime2->diff($dateTime1)->days;
+echo $dateTime2->diff($dateTime1)->format('%Y years, %m months, %d days').PHP_EOL;
+echo $dateTime2->diff($dateTime1)->format('%a').PHP_EOL;
+echo $dateTime2->diff($dateTime1)->format('%R%a').PHP_EOL;
