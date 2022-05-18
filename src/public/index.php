@@ -3,24 +3,54 @@
 
 require __DIR__.'/../vendor/autoload.php';
 
-$date = '15/05/2021 3:30PM';
-
-// $dateTime = new DateTime(str_replace('/', '.',$date));
-
-// $dateTime = DateTime::createFromFormat('d/m/Y g:iA', $date);
+// varibale, anonymous & arrow function
 
 
-// var_dump($dateTime);
+function sum(int|float ...$numbers): int|float{
+    return array_sum($numbers);
+}
+$x = 'sum';
 
 
+if(is_callable($x)){
+    echo $x(1,2,3,4).PHP_EOL;
+}else{
+    echo 'Not callable';
+}
 
-//Diff
 
-$dateTime1 = new DateTime('05/25/2021 9:15 AM');
-$dateTime2 = new DateTime('03/15/2021 3:25 AM');
+//lambda
+$i = 9;
+$suma = function (int|float ...$numbers) use($i): int|float{
+    echo $i.PHP_EOL;
+    return array_sum($numbers);
+};
+
+echo $suma(4,5,6,7).PHP_EOL;
+
+//callable
+$array = [1,2,3,4];
+$array2 = array_map(function($element){
+    return $element * 2;
+}, $array);
+
+print_r($array).PHP_EOL;
+print_r($array2).PHP_EOL;
 
 
-//echo $dateTime2->diff($dateTime1)->days;
-echo $dateTime2->diff($dateTime1)->format('%Y years, %m months, %d days').PHP_EOL;
-echo $dateTime2->diff($dateTime1)->format('%a').PHP_EOL;
-echo $dateTime2->diff($dateTime1)->format('%R%a').PHP_EOL;
+echo "callable".PHP_EOL;
+$add = function(callable $callback, int|float ...$numbers): int|float{
+    return $callback(array_sum($numbers));
+};
+
+echo $add(function($element){
+    return $element * 2;
+}, 9,8,7,6).PHP_EOL;
+
+//arrow
+echo "arrow".PHP_EOL;
+$array = [1,2,4,5];
+
+$array2 = array_map(fn($number) => $number * $number, $array);
+
+print_r($array2);
