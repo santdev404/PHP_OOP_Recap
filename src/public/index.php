@@ -1,7 +1,8 @@
 <?php
 
-
 require __DIR__.'/../vendor/autoload.php';
+
+session_start();
 
 $router = new App\Router;
 
@@ -14,3 +15,4 @@ $router->get('/', [App\Classes\Home::class, 'index'])
 
 echo $router->resolve($_SERVER['REQUEST_URI'], strtolower($_SERVER['REQUEST_METHOD']));
 
+var_dump($_SESSION);
