@@ -29,6 +29,12 @@ class View
             throw new ViewNotFoundException();
         }
 
+        // foreach($this->params as $key => $value){
+        //     $$key = $value;
+        // }
+
+        extract($this->params); 
+
         ob_start();
         include $viewPath;
 
@@ -38,5 +44,11 @@ class View
     public function __toString(): string
     {
         return $this->render();
+    }
+
+
+    public function __get($name)
+    {
+        return $this->params[$name] ?? null;
     }
 }

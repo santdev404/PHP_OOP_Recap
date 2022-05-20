@@ -9,7 +9,7 @@ class HomeController
 {
     public function index()
     {
-        return (string) View::make('index');
+        return (string) View::make('index', ['foo'=>'bar']);
     }
 
     public function upload()
