@@ -1,23 +1,30 @@
 <?php
 
+use App\App;
+use App\Config;
+use App\Controller\HomeController;
+use App\Router;
 use App\View;
 
-require __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
-session_start();
+// session_start();
+
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->load();
 
 define('STORAGE_PATH', __DIR__ . '/../storage');
 define('VIEW_PATH', __DIR__ . '/../views');
 
 try {
-    $router = new App\Router;
+    $router = new Router();
 
-    $router->get('/', [App\Controller\HomeController::class, 'index'])
-        ->get('/download', [App\Controller\HomeController::class, 'download'])
-        ->post('/upload', [App\Controller\HomeController::class, 'upload'])
-        ->get('/invoices', [App\Controller\InvoiceController::class, 'index'])
-        ->get('/invoices/create', [App\Controller\InvoiceController::class, 'create'])
-        ->post('/invoices/create', [App\Controller\InvoiceController::class, 'store']);
+    $router->get('/', [ControllerHomeController::class, 'index'])
+        ->get('/download', [HomeController::class, 'download'])
+        ->post('/upload', [HomeController::class, 'upload'])
+        ->get('/invoices', [InvoiceController::class, 'index'])
+        ->get('/invoices/create', [InvoiceController::class, 'create'])
+        ->post('/invoices/create', [InvoiceController::class, 'store']);
 
 
 
