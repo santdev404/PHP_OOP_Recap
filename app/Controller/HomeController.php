@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\App;
+use App\Model\Invoice;
+use App\Model\User;
+use App\Model\SignUp;
 use App\View;
 use PDO;
 
@@ -13,56 +15,26 @@ class HomeController
     public function index()
     {   
 
-        $db = App::db();
-
-        $email = 'santdev104@gmail.com';
+        $email = 'santdev106@gmail.com';
         $name = 'sant dev';
         $amount = 25;
+        $invoiceModel = new Invoice();
+  
+        $userModel = new User();
 
-        try{
+        
 
-            $db->beginTransaction();
-
-            $newUserStmt = $db->prepare(
-                'INSERT INTO users (email, full_name, is_active, created_at)
-                VALUES (?,?,1, NOW())'
-            );
-    
-            $newInvoiceStmt = $db->prepare(
-                'INSERT INTO invoices (amount, user_id)
-                VALUES (?,?)'
-            );
-    
-            $newUserStmt->execute([$email, $name]);
-    
-            $userId = (int) $db->lastInsertId();
-            
-      
-            $newInvoiceStmt->execute([$amount, $userId]);
-
-            $db->commit();
-
-        }catch(\Throwable $e){
-            if($db->inTransaction()){
-                $db->rollBack();
-            }
-        }
-
-        $fetchStmt = $db->prepare(
-            'SELECT invoices.id AS invoices_id, amount, user_id, full_name
-            FROM invoices
-            INNER JOIN users ON user_id = users.id
-            WHERE email = ?'
+        $invoiceId = (new SignUp($userModel, $invoiceModel))->register(
+            [
+                'email' => $email,
+                'name' => $name
+            ],
+            [
+                'amount' => $amount
+            ]
         );
 
-        $fetchStmt->execute([$email]);
-
-        echo '<pre>';
-        var_dump($fetchStmt->fetch(PDO::FETCH_ASSOC));
-        echo '<pre>';
-
-
-        return (string) View::make('index');
+        return (string) View::make('index', ['invoice' => $invoiceModel->find($invoiceId)]);
     }
 
     public function download()

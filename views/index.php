@@ -1,6 +1,22 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <body>
+        Home page
+    </body>
+    <hr/>
+    <div>
+        <?php if (! empty($invoice)): ?>
+            Invoice ID: <?= $invoice['id']?><br />
+            Invoice Amount: <?= $invoice['amount']?><br />
+            User: <?= $invoice['full_name']?><br />
 
-
-<form action="/upload" method="POST" enctype="multipart/form-data">
-    <input type="file" name="receipt" />
-    <button type="submit">Upload</button>
-</form>
+        <?php endif?>
+    </div>
+</body>
+</html>
